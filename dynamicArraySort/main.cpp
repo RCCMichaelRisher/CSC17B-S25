@@ -18,9 +18,12 @@ using namespace std; //using namespace standard
 int *fillArray( int ); //sizes a 1d array and return the pointer
 int **fillArray( int, int ); //sizes a 2d array and return the pointer
 void cleanup( int * ); //free up memory from 1d arrays
+void cleanup( int **, int ); //free memory for 2d
 //i can't change the value in the array or the where it points to
 void printArray( const int * const, int, int ); //print a 1d array
-void sort( int *, int ); //sort the array 
+void printArray( int **, int, int ); //print 2d array
+void sortArray( int *, int ); //sort the array 
+void sortArray( int **, int, int ); //sort the 2d array
 
 //execution begins here at main
 int main( int argc, char **argv ) {
@@ -33,6 +36,8 @@ int main( int argc, char **argv ) {
     int **array2D; //== int array[rows][cols]
     //initialize variables
     length = 100;
+    rows = 10;
+    cols = 10;
     array1D = fillArray( length );
     array2D = fillArray( rows, cols );
     //map/process the inputs -> outputs
@@ -42,9 +47,9 @@ int main( int argc, char **argv ) {
     cout << "here is the 1 dimensional array" << endl;
     cout << "Your new array looks like this: " << endl;
     printArray( array1D, length, 25 );
-
+    
     //sort the array
-    sort( array1D, length );
+    sortArray( array1D, length );
 
     cout << "your array sorted looks like this 😏" << endl;
     printArray( array1D, length, 25 );
@@ -55,15 +60,15 @@ int main( int argc, char **argv ) {
     printArray( array2D, rows, cols );
 
     //sort the array
-    sort( array2D, rows, cols );
+    sortArray( array2D, rows, cols );
 
     cout << "your array sorted looks like this 😏" << endl;
     printArray( array2D, rows, cols );
 
-    cout << "╰(*°▽°*)╯";
+
     //clean up memory, close files
     cleanup( array1D );
-    cleanup( array2D );
+    cleanup( array2D, rows );
 
     //exit the program
     return 0;
@@ -89,6 +94,7 @@ int **fillArray( int rows, int cols ){
             array[i][j] = rand() % 90 + 10; //[10-99] range
         }
     }
+    return array;
 }
 
 //print a 1d array
@@ -101,8 +107,19 @@ void printArray( const int * const array, int length, int perLine ){
     cout << endl;    
 }
 
+void printArray( int **array, int rows, int cols ){
+    for (int i = 0; i < rows; i++) {
+        for( int j = 0; j < cols; j++ ){
+            cout << array[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+    
+}
+
 //sort the 1d array
-void sort( int *array, int length ){
+void sortArray( int *array, int length ){
     for( int i = 0; i < length - 1; i++ ){
         for( int j = i + 1; j < length; j++ ){
             if( array[i] > array[j] ){ //if 0th element is biiger than the 1st, swap em
@@ -111,6 +128,12 @@ void sort( int *array, int length ){
                 array[j] = temp;
             }
         }
+    }
+}
+
+void sortArray( int **array, int rows, int cols ){
+    for( int i = 0; i < rows; i++ ){
+        sortArray( array[i], cols );
     }
 }
 
