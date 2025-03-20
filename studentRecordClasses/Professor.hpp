@@ -22,6 +22,8 @@ class Professor : public Person{
       virtual ~Professor(){}
       //fns
       virtual void print();
+      void saveToFile( ofstream & ) const override;
+      void loadFromFile( ifstream & ) override;
       
 };
 

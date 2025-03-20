@@ -3,6 +3,7 @@
 #define PERSON_HPP
 
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -26,6 +27,8 @@ class Person {
 
         //functions
         virtual void print() const;
+        virtual void saveToFile( ofstream & ) const;
+        virtual void loadFromFile( ifstream & );
 
 };
 

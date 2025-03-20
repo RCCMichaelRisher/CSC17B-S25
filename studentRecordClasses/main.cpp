@@ -48,6 +48,16 @@ int main(int argc, char** argv) {
     //make the money
     
     delete course;
+
+    //load it from the file this time
+    cout << "\n\n\n\nLoading the course back from a file" << endl;
+    Course *loadedCourse = new Course();
+    loadedCourse->loadFromFile( filename );
+    //print
+    loadedCourse->print();
+    // loadedCourse->getStudents()[0].debug();
+
+    delete loadedCourse;
     //Exit the Program
     return 0;
 }

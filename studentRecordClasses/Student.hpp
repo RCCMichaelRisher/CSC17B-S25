@@ -31,7 +31,9 @@ class Student : public Person {
 
         void print() const override;
         void calvAvg();
-
+        //save to file
+        void saveToFile( ofstream & ) const override;
+        void loadFromFile( ifstream & ) override;
       
 };
 
