@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- meta data also this a comment -->
+        <meta charset="UTF-8" />
+        <title>Awesome webpage title here</title>
+        <!-- stylesheets, js, fonts, other stuff i cant think of -->
+        <script>
+            //javascript lives here also comments normal again
+            function main(){
+                //main function TODO
+                //datatypes are no more
+                //if you want data types kinda go to typescript
+                let x;
+                x = prompt( "Input the value of x, x must be an int from x >= 0 and x <= 2" );
+
+                //print to the console things broke help 
+                console.log( typeof x );
+
+                //branching
+                if ( x < 0 ) document.write( "value too small<br/>" );
+                if ( x > 2 ) document.write( "value too big<br/>" );
+                if ( x >= 0 && x <= 2 ) document.write( "value to okay<br/>" );
+                
+                //dependent if's
+                if ( x < 0 )      document.write( "value too small<br/>" );
+                else if ( x > 2 ) document.write( "value too big<br/>" );
+                else              document.write( "value to okay<br/>" );
+
+                //ternary
+                let msg = ( x < 0 ) ? "value too small " :
+                    ( x > 2 ) ?  "value too big " :
+                                "value to okay ";
+                document.write( msg + "<br/>" );
+
+                //switch 
+                //x is a string
+                switch ( parseInt( x )  ){
+                    case 0:
+                    case 1:
+                    case 2:  document.write( "value to okay<br/>" ); break;
+                    default: document.write( "value not okay now<br/>" ); break;
+                }
+                console.log( typeof x );
+
+                //loops 
+                let loop = 5;
+                for( let i = 0; i <= loop; i++ ){
+                    document.write( i, " " );
+                }
+                document.write( "<br/>" );
+
+                //do while
+                let i = 0;
+                do{
+                    document.write( i, " " );
+                } 
+                while( ++i <= loop );
+                document.write( "<br/>" );
+
+                //while loop
+                //do while
+                i = 0;
+                while( i <= loop ){
+                    document.write( i++, " " );
+                } 
+                document.write( "<br/>" );
+
+                //range loop 
+                let array = [0,1,2,3,4,5];
+                let array1 = Array(1,2,3,4,5);
+                for( let i of array ){
+                    document.write( i, " " );
+                }
+                document.write( "<br/>");
+
+
+                //error try catching 
+                try{
+                    //maybe error
+                    throw new Error( "it broke!" );
+                } catch ( e ){
+                    document.write( e.message, "<br/>");
+                    alert( e.message, "<br/>");
+                } finally {
+                    //this runs at the end if errored or if not
+                    document.write( "finally the block is executed<br/>" );
+                }
+
+            }
+        </script>
+    </head>
+    <body>
+        <!-- meat of the page -->
+        <script>
+            main();
+        </script>
+    </body>
+</html>
