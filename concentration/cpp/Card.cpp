@@ -1,5 +1,6 @@
 #include "Card.hpp"
 #include <algorithm>
+#include <sstream>
 
 Card::Card(){
     cardNum = -1;
@@ -70,4 +71,13 @@ void Card::setPicture(){
 
 string Card::toString() const {
     return name + " of " + suit;
+}
+
+string Card::toHTML() const{
+    stringstream ss;
+    ss << "<div class=\"card\">"
+        << "<img src=\"" << picture << "\" alt=\"" << toString() << "\" />"
+        << "<p>" << toString() << "</p>"
+        << "</div>";
+    return ss.str();
 }
