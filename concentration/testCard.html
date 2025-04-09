@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html>
+    <head>
+        <!-- include card.js -->
+        <script type="text/javascript" src="Card.js"></script>
+    </head>
+    <body>
+        <script>
+            let nCards = 52;
+            let deck = new Array( nCards );
+            for( let i = 0; i < nCards; i++ ){
+                deck[i] = new Card( i );
+                document.write( deck[i].toHtml() );
+            }
+        </script>
+        
+    </body>
+</html>

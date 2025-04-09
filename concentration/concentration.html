@@ -1,0 +1,130 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <title>Concentration Game</title>
+        <style>
+            body{
+                background: rgb(39, 87, 16);
+            }
+            .flex{
+                /* target a class name */
+                display: flex;
+                justify-content: center;
+            }
+
+            .flex div{
+                /* target divs inside of the class flex */
+                text-align: center;
+                padding: 5px;
+                /* margin: 20px; */
+            }
+
+            #unique{
+                /* target a id  */
+                /* background: gainsboro; */
+            }
+
+            .right{
+                text-align: right;
+            }
+            .center{
+                text-align: center;
+            }
+
+        </style>
+        <script lang="javascript" src="Card.js"></script>
+        <script lang="javascript">
+            //game stuff code here
+            let deck = [];
+            let gameBoard = [];
+            let clicked = [-1, -1]; //keep track of what we clicked
+
+            //main game start logic here
+            function start(){
+                let nCards = 52;
+                let cards = new Array( nCards );
+                for( let i = 0; i < nCards; i++ ){
+                    cards[i] = new Card( i );
+                }
+
+                //shuffle cards
+                shuffle( cards, nCards );
+
+                //move the cards that we shuffled to the deck
+                for( let i = 0; i < nCards; i++ ){
+                    deck[i] = cards[i];
+                }
+
+                //pick the gameboard
+                for( let i = 0; i < 36; i++ ){
+                    if( i < 18 ){
+                        gameBoard[i] = deck[ i ];
+                    } else {
+                        gameBoard[i] = deck[ i - 18 ];
+                    }
+                }
+
+                shuffle( gameBoard, 36 );
+
+            }
+
+            //shuffle the whatever
+            function shuffle( deck, size ){
+                for( let i = 0; i < 7; i++ ){
+                    for( let j = 0; i < size; i++  ){
+                        let r = Math.floor( Math.random() * ( size - 1 ) ); //random number 0-51
+                        let temp = deck[i];
+                        deck[i] = deck[r];
+                        deck[r] = temp;
+                    }
+                }
+            }
+
+            //click on the card shows the card
+            function revealImage( current ){
+                let a = document.getElementById( "card" + current );
+                let img = document.getElementById( "cardImg" + current );
+                img.src = gameBoard[current].picture;
+                
+                if( clicked[0] == -1 ){
+                    clicked[0] = current;
+                } else {
+                    clicked[1] = current; //set the 2nd clicked card to current
+                    if( gameBoard[ clicked[0] ].cardNum  == gameBoard[ clicked[1] ].cardNum ){
+                        alert( "they match");
+                    } else {
+                        alert( "no Match" );
+                        clicked = [-1,-1];
+                        //TODO FINISH THIS
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="right">
+            <input name="newGame" value="New Game" type="button" onclick=""/>
+        </div>
+        <div class="center">
+
+            <input id="pairCorrect" value="0 Pairs" readonly type="text" />
+        </div>
+        <script>
+            var cardNum = 0;
+            start(); //game init
+            for( let row = 0; row < 6; row++ ){
+                document.write( `<div class="flex" id="unique">` );
+                for( let col = 0; col < 6; col++ ){
+                    document.write( `<div>` );
+                    document.write( `<a href="javascript:revealImage(${cardNum})" id="card${cardNum}">`); //link
+                    document.write( `<img src="cards/back.jpg" id="cardImg${cardNum}" />`);
+                    document.write( `</a>`);
+                    document.write( `</div>`);
+                    cardNum++;
+                }
+                document.write( `</div>` );
+            }
+        </script>
+    </body>
+</html>

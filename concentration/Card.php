@@ -75,9 +75,15 @@ class Card{
         $ss = "<div class=\"card\">" .
             "<img src=\"" . $this->picture . "\" alt=\"" . $this->__toString() . "\" />" .
             "<p>" . $this->__toString() . "</p>".
+            "<p>Card Num: " . $this->cardNum . "</p>" . 
+            "<p>Face Val: " . $this->getFaceVal() . "</p>" . 
+            "<p>Name: {$this->getName()}</p>" . 
             "</div>";
         return $ss;
     }
+
+    public function getFaceVal(){ return $this->faceVal;}
+    public function getName(){ return $this->name;}
 
 
 // int getCardNum() const {
