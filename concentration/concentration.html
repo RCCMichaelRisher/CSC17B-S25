@@ -39,6 +39,16 @@
             let deck = [];
             let gameBoard = [];
             let clicked = [-1, -1]; //keep track of what we clicked
+            let correct = 0; //how many pairs they have correct
+
+            //ask for a name here
+            if( getCookie( "username" ) === null ) { //new user
+                username = prompt( "Please enter your name" );
+                setCookie( "username", username );   
+            } else{
+                //you arent new
+                username = getCookie( "username" );
+            }
 
             //main game start logic here
             function start(){
@@ -66,7 +76,34 @@
                 }
 
                 shuffle( gameBoard, 36 );
+            }
 
+            function getCookie( name ){
+                if( document.cookie.length > 0 ){
+                    //find starting pooint
+                    let startPos = document.cookie.indexOf( name + '=' );
+                    if( startPos !== -1 ){ 
+                        let endPos = document.cookie.substr( startPos ).indexOf( ';' );
+                        let cookie = document.cookie.substr( startPos, endPos ).split('=');
+                        //de-codes url encoding that was put in place
+                        return unescape( cookie[1] );
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+            }
+
+            function setCookie( name, value, expireDays = 30 ){
+                alert( 12 );
+                //set date for expiration
+                let expireDate = new Date();
+                expireDate.setDate( expireDate.getDate() + expireDays );
+                // document.cookie
+                s = name + "=" + escape( value ) + ( ( expireDays === null ) ? "" : ";expires=" + expireDate.toUTCString() );
+                document.cookie += s;
+                // console.log( s,  );
             }
 
             //shuffle the whatever
@@ -89,26 +126,70 @@
                 
                 if( clicked[0] == -1 ){
                     clicked[0] = current;
-                } else {
+                } else { //2nd card action
                     clicked[1] = current; //set the 2nd clicked card to current
                     if( gameBoard[ clicked[0] ].cardNum  == gameBoard[ clicked[1] ].cardNum ){
-                        alert( "they match");
-                    } else {
-                        alert( "no Match" );
+                        correct++;
+                        //alert( "they match");
+                        //remove the action so they cant click again
+                        //card1 the card we clicked
+                        a.removeAttribute( "href" );
+                        //same thing card 0 
+                        document.getElementById( "card" + clicked[0] );
+                        //reset clicked cards
                         clicked = [-1,-1];
-                        //TODO FINISH THIS
+                        document.getElementById( "pairsCorrect" ).value = correct + " pairs correct";
+                    } else {
+                        //alert( "no Match" );
+                        
+                        //happens to fast we need to pause it
+                        setTimeout( function( card0, card1 ){
+                            //flip the card back
+                            img.src = "cards/back.jpg";
+                            //get the other clicked card
+                            document.getElementById( "cardImg" + card0 ).src =  "cards/back.jpg";
+                        }, 1500, clicked[0], clicked[1] );
+                        //reset clicked cards
+                        clicked = [-1,-1];
                     }
+                }
+            }
+            
+            function newGame(){
+                deck = [];
+                gameBoard = [];
+                clicked = [-1, -1]; //keep track of what we clicked
+                correct = 0;
+
+                //shuffles the deck;
+                start();
+
+                //change the pair correct counter
+                document.getElementById( "pairsCorrect" ).value = "0 pairs correct";
+
+                //reset the board
+                let cards = document.getElementsByClassName( "cardImages" );
+                for( let i = 0; i < cards.length; i++ ){
+                    //change to back picture
+                    cards[ i ].src = "cards/back.jpg";
+                    //reset the action on the a tag
+                    cards[i].parentElement.setAttribute( "href", `javascript:revealImage(${i})`)
                 }
             }
         </script>
     </head>
     <body>
         <div class="right">
-            <input name="newGame" value="New Game" type="button" onclick=""/>
+            <input name="newGame" value="New Game" type="button" onclick="javascript:newGame()"/>
+        </div>
+        <div class="left">
+            <script>
+                document.write( `<input type="text" name="player" value="${username}" />` );
+            </script>
         </div>
         <div class="center">
 
-            <input id="pairCorrect" value="0 Pairs" readonly type="text" />
+            <input id="pairsCorrect" value="0 Pairs correct" readonly type="text" />
         </div>
         <script>
             var cardNum = 0;
@@ -118,7 +199,7 @@
                 for( let col = 0; col < 6; col++ ){
                     document.write( `<div>` );
                     document.write( `<a href="javascript:revealImage(${cardNum})" id="card${cardNum}">`); //link
-                    document.write( `<img src="cards/back.jpg" id="cardImg${cardNum}" />`);
+                    document.write( `<img class="cardImages" src="cards/back.jpg" id="cardImg${cardNum}" />`);
                     document.write( `</a>`);
                     document.write( `</div>`);
                     cardNum++;
