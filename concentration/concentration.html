@@ -104,7 +104,6 @@
                 // document.cookie
                 s = name + "=" + escape( value ) + ( ( expireDays === null ) ? "" : ";expires=" + expireDate.toUTCString() + ";path=/" );
                 document.cookie = s;
-                // console.log( s,  );
             }
 
             function deleteCooke( name ){
