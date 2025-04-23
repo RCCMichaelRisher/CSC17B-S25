@@ -84,6 +84,8 @@
                     let startPos = document.cookie.indexOf( name + '=' );
                     if( startPos !== -1 ){ 
                         let endPos = document.cookie.substr( startPos ).indexOf( ';' );
+                        //edge case for where there is only one cookie it doenst put a semicolon at the end
+                        endPos = endPos == -1 ? document.cookie.length : endPos;
                         let cookie = document.cookie.substr( startPos, endPos ).split('=');
                         //de-codes url encoding that was put in place
                         return unescape( cookie[1] );
@@ -96,14 +98,17 @@
             }
 
             function setCookie( name, value, expireDays = 30 ){
-                alert( 12 );
                 //set date for expiration
                 let expireDate = new Date();
                 expireDate.setDate( expireDate.getDate() + expireDays );
                 // document.cookie
-                s = name + "=" + escape( value ) + ( ( expireDays === null ) ? "" : ";expires=" + expireDate.toUTCString() );
-                document.cookie += s;
+                s = name + "=" + escape( value ) + ( ( expireDays === null ) ? "" : ";expires=" + expireDate.toUTCString() + ";path=/" );
+                document.cookie = s;
                 // console.log( s,  );
+            }
+
+            function deleteCooke( name ){
+                document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"
             }
 
             //shuffle the whatever
@@ -148,7 +153,7 @@
                             img.src = "cards/back.jpg";
                             //get the other clicked card
                             document.getElementById( "cardImg" + card0 ).src =  "cards/back.jpg";
-                        }, 1500, clicked[0], clicked[1] );
+                        }, 750, clicked[0], clicked[1] );
                         //reset clicked cards
                         clicked = [-1,-1];
                     }
@@ -176,11 +181,17 @@
                     cards[i].parentElement.setAttribute( "href", `javascript:revealImage(${i})`)
                 }
             }
+
+            function newPlayer(){
+                deleteCooke( "username" );
+                location.reload(); //forces a page reload 
+            }
         </script>
     </head>
     <body>
         <div class="right">
             <input name="newGame" value="New Game" type="button" onclick="javascript:newGame()"/>
+            <input name="newGame" value="New Player" type="button" onclick="javascript:newPlayer()"/>
         </div>
         <div class="left">
             <script>
