@@ -101,9 +101,8 @@
                 let expireDate = new Date();
                 expireDate.setDate( expireDate.getDate() + expireDays );
                 // document.cookie
-                s = name + "=" + escape( value ) + ( ( expireDays === null ) ? "" : ";expires=" + expireDate.toUTCString() );
-                document.cookie += s;
-                // console.log( s,  );
+                s = name + "=" + escape( value ) + ( ( expireDays === null ) ? "" : ";expires=" + expireDate.toUTCString() + ";path=/" );
+                document.cookie = s;
             }
 
             //shuffle the whatever
