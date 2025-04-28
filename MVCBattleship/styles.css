@@ -15,6 +15,13 @@ body {
     gap: 1px;
 }
 
+#messageArea{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: chartreuse;
+}
+
 #spacer{
     height: 95px;
     width: 100%
