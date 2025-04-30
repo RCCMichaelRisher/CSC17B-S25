@@ -34,15 +34,23 @@ body {
 
 
 
-.cell{
+.cell, .hit, .miss{
     /* background-color: rgba(125, 125, 0, .5); */
-    width: 93px;
+    width: 97px;
     height: 94px;
     display: flex;
     align-items: center;
     justify-content: center;
     /* border: 1px solid green; */
 
+}
+
+.miss{
+    background: url( miss.png ) no-repeat center center;
+}
+
+.hit{
+    background: url( ship.png ) no-repeat center center;
 }
 
 form{
@@ -57,4 +65,8 @@ form input{
     font-size: 1em;
     background-color: rgb(177 217 149);
     border-color: rgb( 83, 175, 10);
+}
+
+form .hide{
+    display: none;
 }

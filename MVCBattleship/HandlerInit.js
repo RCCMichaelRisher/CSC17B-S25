@@ -20,6 +20,10 @@ function keyPressHandle( event ){
     }
 }
 
+function newGameHandle( e ) {
+    controller.newGame();
+}
+
 
 function init(){
     //initalize events
@@ -29,6 +33,9 @@ function init(){
 
     let input = document.getElementById( "guessInput" );
     input.onkeydown = keyPressHandle; //when press of key do things
+
+    let newGameBtn = document.getElementById( "newGame" );
+    newGameBtn.onclick = newGameHandle;
 
     controller.initGame();//init the game play
 

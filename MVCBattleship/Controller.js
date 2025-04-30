@@ -43,7 +43,10 @@ class Controller{
             //if you hit my last ship this is where id learn about it first
             //test win condition
             if( hit && model.numShipsSunk == model.numShips ){
-                view.displayMessage( "You sank all my ships. Much impress") ;
+                view.displayMessage( "You sank all my ships. Much impress. It took " + this.guesses + " guesses to win" ); 
+                alert( "You sank all my ships. Much impress. It took " + this.guesses + " guesses to win" );
+                document.getElementById( "newGame" ).setAttribute( "class", "shown" );
+                localStorage.setItem( "LastScore", this.guesses );
             }
         }
 
@@ -52,6 +55,13 @@ class Controller{
     initGame(){
         //make the ships
         model.generateShipLocations();
+    }
+
+    newGame(){
+        this.guesses = 0;
+        view.displayMessage( "New Game Started" );
+        model.newGame();
+        view.resetCells();
     }
 }
 
