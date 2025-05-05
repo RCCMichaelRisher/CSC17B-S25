@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Feedback for students</title>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="util.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <h1> Student Feedback</h1>
+    <form method="POST" id="feedbackForm" >
+        <label>Name: </label> <br>
+        <input type="text" name="name" value="test" required/><br>
+
+        <label>email: </label> <br>
+        <input type="email" name="email" value="w@w.w" required/><br>
+
+        <label>feedback: </label> <br>
+        <textarea name="feedback" required>good</textarea><br>
+
+        <button type="submit" value="JSON">Generate JSON</button>
+        <button type="submit" value="XML">Generate XML</button>
+
+        <h2>Generated <span class="datatype">JSON</span></h2>
+        <pre id="output"></pre>
+
+
+        <h2>Current <span class="datatype">JSON</span> Content</h2>
+        <pre id="content"></pre>
+    </form>
+    
+</body>
+</html>
