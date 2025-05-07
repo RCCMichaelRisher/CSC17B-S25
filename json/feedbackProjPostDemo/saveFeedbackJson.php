@@ -1,4 +1,14 @@
 <?php
+
+echo "<pre>";
+print_r( $_POST );
+echo "</pre>";
+
+
+exit;
+//dont run anything below this is only testing a post request
+
+
 //tell js im sending json
 header( "Content-Type: application/json" );
 

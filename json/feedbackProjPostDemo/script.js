@@ -43,10 +43,7 @@ function toJSON( formData, e ){
     //form action url
     fetch( "saveFeedbackJson.php", {
         method : "POST",
-        header : {
-            "Content-Type" : "application/json"
-        },
-        body : JSON.stringify( jsonObject )
+        body : formData
     } )
     .then( response => response.json() ) //convert the json since the js sees it as text
     //function( response ){
