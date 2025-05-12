@@ -5,7 +5,7 @@ header( "Content-Type: application/xml" );
 $input = file_get_contents( "php://input" ); //gets the raw post request
 //turn to xml
 $data = simplexml_load_string( $input ); //loads xml from string
-print_r( $data );
+// print_r( $data );
 //verify we got something
 if( !$data ){
     http_response_code( 400 );
@@ -24,8 +24,8 @@ if( file_exists( $file ) ){
 
 //append the new feedback
 $newFeedback = $feedback->addChild( 'feedback');
-foreach( $xml as $k => $v ){
-    $newFeedback->addChild( $k, htmlspecialchars( $value ) );
+foreach( $data as $k => $v ){
+    $newFeedback->addChild( $k, htmlspecialchars( $v ) );
 }
 
 //save to the file
@@ -33,6 +33,6 @@ $feedback->asXml( $file );
 
 //send a reaponse to js
 $dom = dom_import_simpleXML( $feedback );
-$content = $dom->ownerDocument->saveXML( $dom->ownerDocument->documentElemt ); //read the contents from the xml object
+$content = $dom->ownerDocument->saveXML( $dom->ownerDocument->documentElement ); //read the contents from the xml object
 echo "<reponse><message>Saved succesufully</message><content>{$content}</content></response>";
 ?>

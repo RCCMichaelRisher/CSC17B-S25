@@ -75,7 +75,9 @@ function toXML( formElems ){
     //different way of getting form data
     for( let i = 0; i < formElements.length; i++ ){
         const elem = formElements[i];
-        xmlObject[elem.name] = elem.value;
+        if( elem.name ){
+            xmlObject[elem.name] = elem.value;
+        }
     }
 
     xmlObject['timestamp'] = new Date().toISOString();
@@ -105,8 +107,8 @@ function toXML( formElems ){
         //update the html areas
         const parser = new DOMParser();
         let xml = parser.parseFromString( result, "application/xml");
-        document.getElementById( "content" ).textContent = xml.getElementsByTagName("message")[0].outerHTML;    
-        document.getElementById( "message" ).textContent = xml.getElementsByTagName("content")[0].outerHTML;  
+        document.getElementById( "content" ).textContent = prettifyXml( xml.getElementsByTagName("content")[0].outerHTML );    
+        document.getElementById( "message" ).textContent = xml.getElementsByTagName("message")[0].outerHTML;  
     } )
     .catch( error => {
         console.error( error );
