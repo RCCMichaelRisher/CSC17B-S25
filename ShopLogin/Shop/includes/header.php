@@ -12,6 +12,7 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="index.php"><img src="images/home.jpg"></a></li>
+                <li><a href="browse_prints.php"><img src="images/prints.jpg"></a></li>
             </ul>
         </nav>
     </header>
