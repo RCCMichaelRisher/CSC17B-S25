@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!doctype html>
 <html>
 <head>
@@ -13,6 +14,7 @@
             <ul class="nav-links">
                 <li><a href="index.php"><img src="images/home.jpg"></a></li>
                 <li><a href="browse_prints.php"><img src="images/prints.jpg"></a></li>
+                <li><a href="view_cart.php"><img src="images/cart.jpg"></a></li>
             </ul>
         </nav>
     </header>

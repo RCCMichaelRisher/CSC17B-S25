@@ -56,6 +56,10 @@
 
                 if( $statement->affected_rows == 1 ) {
                     echo "<p>the artist has been added to the database</p>";
+
+                    //rename the picture we uploaded
+                    $id = $connection->insert_id;
+                    rename( $temp, "../../uploads/$id");
                 } else {
                     echo "<p>There was an error</p>";
                 }
